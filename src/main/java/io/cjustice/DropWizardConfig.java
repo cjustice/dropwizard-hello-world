@@ -2,7 +2,11 @@ package io.cjustice;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
+import io.dropwizard.db.DataSourceFactory;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 public class DropWizardConfig extends Configuration {
     // TODO: implement service configuration
@@ -30,5 +34,14 @@ public class DropWizardConfig extends Configuration {
     @JsonProperty
     public void setDefaultName(String defaultName) {
         this.defaultName = defaultName;
+    }
+
+    @Valid
+    @NotNull
+    @JsonProperty("database")
+    private DataSourceFactory dataSourceFactory = new DataSourceFactory();
+
+    public DataSourceFactory getDataSourceFactory() {
+        return dataSourceFactory;
     }
 }
